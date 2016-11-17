@@ -1,6 +1,13 @@
-﻿using System;
+﻿/*
+ * This is a sample app connecting to a SQL instance with .NET Core. 
+ * The SQL instance in this case is SQL on Linux!!
+ * 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+
 
 namespace ConsoleApplication
 {
@@ -8,21 +15,27 @@ namespace ConsoleApplication
     {
         public static void Main(string[] args)
         {
-            // Dictionary<int, string> kvp = new Dictionary<int, string>();
+            string connectionString = "Data Source=localhost;Initial Catalog=master;Integrated Security=False;User Id=sa;Password=Withersp00n;MultipleActiveResultSets=True";
+            string query = @"
+                SELECT *
+                FROM sys.objects
+                ";
 
-            // kvp.Add(1, "Lorem Ipsem");
+            SqlConnection conn = new SqlConnection(connectionString);
 
-            // foreach (var item in kvp)
-            // {
-            //     Console.WriteLine(item.Value);
-            // }
+            using (conn)
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
 
-            //////////////////////////////////////////
-            //how do I use this???
-            //////////////////////////////////////////
-            //https://dotnet.myget.org/feed/dotnet-core/package/nuget/System.Data.SqlClient/4.4.0-beta-24717-03
+                SqlDataReader reader = cmd.ExecuteReader();
 
+                while (reader.Read())
+                {
+                    Console.WriteLine(reader.GetSqlString(0));
+                }
 
+            }
         }
     }
 }
