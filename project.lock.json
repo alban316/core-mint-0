@@ -7426,7 +7426,6 @@
   "projectFileDependencyGroups": {
     "": [
       "Newtonsoft.Json >= 9.0.1",
-      "System.Data.Common >= 4.3.0",
       "System.Data.SqlClient >= 4.3.0"
     ],
     ".NETCoreApp,Version=v1.1": [
